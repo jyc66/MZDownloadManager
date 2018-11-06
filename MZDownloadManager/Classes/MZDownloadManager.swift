@@ -153,7 +153,11 @@ extension MZDownloadManager {
             var localFilePath = (resumeDictionary?["NSURLSessionResumeInfoLocalPath"] as? String)
             
             if localFilePath == nil || localFilePath?.count < 1 {
-                localFilePath = (NSTemporaryDirectory() as String) + (resumeDictionary["NSURLSessionResumeInfoTempFileName"] as! String)
+                    if let fileName = resumeDictionary["NSURLSessionResumeInfoTempFileName"] as? String{
+                        localFilePath = (NSTemporaryDirectory() as String) + fileName
+                    }else{
+                        return false
+                    }
             }
             
             let fileManager : FileManager! = FileManager.default
