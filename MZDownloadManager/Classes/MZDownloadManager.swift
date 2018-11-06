@@ -151,6 +151,12 @@ extension MZDownloadManager {
             var resumeDictionary : AnyObject!
             resumeDictionary = try PropertyListSerialization.propertyList(from: resumeData!, options: PropertyListSerialization.MutabilityOptions(), format: nil) as AnyObject
             var localFilePath = (resumeDictionary?["NSURLSessionResumeInfoLocalPath"] as? String)
+            for aKey in resumeDictionary.allKeys
+            {
+                // do something like a log:
+                debugPrint("\(aKey)");
+                debugPrint("\(resumeDictionary[aKey])");
+            }
             
             if localFilePath == nil || localFilePath?.count < 1 {
                     if let fileName = resumeDictionary["NSURLSessionResumeInfoTempFileName"] as? String{
